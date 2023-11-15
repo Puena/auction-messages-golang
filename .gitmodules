@@ -1,0 +1,6 @@
+[submodule "auction-messages-proto"]
+	path = proto
+	url = git@github.com:Puena/auction-messages-proto.git
+[submodule "proto"]
+	path = proto
+	url = git@github.com:Puena/auction-messages-proto.git
