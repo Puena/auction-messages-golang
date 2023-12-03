@@ -336,6 +336,7 @@ UserMessageError message represent data of user message error.
 | msgId | [string](#string) |  |  |
 | user | [User](#auction-User) |  |  |
 | userId | [UserId](#auction-UserId) |  |  |
+| msgError | [string](#string) |  |  |
 | msgCreatedAt | [string](#string) |  |  |
 
 
