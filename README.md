@@ -4,16 +4,16 @@
 ## Table of Contents
 
 - [proto/product.proto](#proto_product-proto)
-    - [GetProductByIdRequest](#product-GetProductByIdRequest)
-    - [GetProductsByNameRequest](#product-GetProductsByNameRequest)
-    - [ProductCreateRequest](#product-ProductCreateRequest)
-    - [ProductCreatedResponse](#product-ProductCreatedResponse)
-    - [ProductDeleteRequest](#product-ProductDeleteRequest)
-    - [ProductDeletedResponse](#product-ProductDeletedResponse)
-    - [ProductErrorResponse](#product-ProductErrorResponse)
-    - [ProductResponse](#product-ProductResponse)
-    - [ProductUpdateRequest](#product-ProductUpdateRequest)
-    - [ProductUpdatedResponse](#product-ProductUpdatedResponse)
+    - [GetProductByIdRequest](#auction-GetProductByIdRequest)
+    - [GetProductsByNameRequest](#auction-GetProductsByNameRequest)
+    - [ProductCreateRequest](#auction-ProductCreateRequest)
+    - [ProductCreatedResponse](#auction-ProductCreatedResponse)
+    - [ProductDeleteRequest](#auction-ProductDeleteRequest)
+    - [ProductDeletedResponse](#auction-ProductDeletedResponse)
+    - [ProductErrorResponse](#auction-ProductErrorResponse)
+    - [ProductResponse](#auction-ProductResponse)
+    - [ProductUpdateRequest](#auction-ProductUpdateRequest)
+    - [ProductUpdatedResponse](#auction-ProductUpdatedResponse)
   
 - [Scalar Value Types](#scalar-value-types)
 
@@ -26,7 +26,7 @@
 
 
 
-<a name="product-GetProductByIdRequest"></a>
+<a name="auction-GetProductByIdRequest"></a>
 
 ### GetProductByIdRequest
 GetProductByIdRequest represent event message to get product by id.
@@ -41,7 +41,7 @@ GetProductByIdRequest represent event message to get product by id.
 
 
 
-<a name="product-GetProductsByNameRequest"></a>
+<a name="auction-GetProductsByNameRequest"></a>
 
 ### GetProductsByNameRequest
 GetProductsByNameRequest represent event message to get products by name.
@@ -56,7 +56,7 @@ GetProductsByNameRequest represent event message to get products by name.
 
 
 
-<a name="product-ProductCreateRequest"></a>
+<a name="auction-ProductCreateRequest"></a>
 
 ### ProductCreateRequest
 ProductCreateRequest represent event message to create products.
@@ -73,7 +73,7 @@ ProductCreateRequest represent event message to create products.
 
 
 
-<a name="product-ProductCreatedResponse"></a>
+<a name="auction-ProductCreatedResponse"></a>
 
 ### ProductCreatedResponse
 ProductCreatedResponse represent event message after create product.
@@ -81,14 +81,14 @@ ProductCreatedResponse represent event message after create product.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| product | [ProductResponse](#product-ProductResponse) |  |  |
+| product | [ProductResponse](#auction-ProductResponse) |  |  |
 
 
 
 
 
 
-<a name="product-ProductDeleteRequest"></a>
+<a name="auction-ProductDeleteRequest"></a>
 
 ### ProductDeleteRequest
 ProductDeleteRequest represent event message to delete product.
@@ -103,7 +103,7 @@ ProductDeleteRequest represent event message to delete product.
 
 
 
-<a name="product-ProductDeletedResponse"></a>
+<a name="auction-ProductDeletedResponse"></a>
 
 ### ProductDeletedResponse
 ProductDeletedResponse represent event message after delete product.
@@ -111,14 +111,14 @@ ProductDeletedResponse represent event message after delete product.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| product | [ProductResponse](#product-ProductResponse) |  |  |
+| product | [ProductResponse](#auction-ProductResponse) |  |  |
 
 
 
 
 
 
-<a name="product-ProductErrorResponse"></a>
+<a name="auction-ProductErrorResponse"></a>
 
 ### ProductErrorResponse
 ProductErrorResponse represent event message of product error.
@@ -135,7 +135,7 @@ ProductErrorResponse represent event message of product error.
 
 
 
-<a name="product-ProductResponse"></a>
+<a name="auction-ProductResponse"></a>
 
 ### ProductResponse
 ProductResponse represent message data of product.
@@ -155,7 +155,7 @@ ProductResponse represent message data of product.
 
 
 
-<a name="product-ProductUpdateRequest"></a>
+<a name="auction-ProductUpdateRequest"></a>
 
 ### ProductUpdateRequest
 ProductUpdateRequest represent event message to update product.
@@ -172,7 +172,7 @@ ProductUpdateRequest represent event message to update product.
 
 
 
-<a name="product-ProductUpdatedResponse"></a>
+<a name="auction-ProductUpdatedResponse"></a>
 
 ### ProductUpdatedResponse
 ProductUpdatedResponse represent event message after update product.
@@ -180,7 +180,7 @@ ProductUpdatedResponse represent event message after update product.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| product | [ProductResponse](#product-ProductResponse) |  |  |
+| product | [ProductResponse](#auction-ProductResponse) |  |  |
 
 
 
