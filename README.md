@@ -15,6 +15,16 @@
     - [ProductUpdateRequest](#auction-ProductUpdateRequest)
     - [ProductUpdatedResponse](#auction-ProductUpdatedResponse)
   
+- [proto/user.proto](#proto_user-proto)
+    - [EventUserData](#auction-EventUserData)
+    - [EventUserError](#auction-EventUserError)
+    - [EventUserRevoked](#auction-EventUserRevoked)
+    - [EventUserUpdated](#auction-EventUserUpdated)
+    - [EventUserVerified](#auction-EventUserVerified)
+    - [User](#auction-User)
+    - [UserId](#auction-UserId)
+    - [UserMessageError](#auction-UserMessageError)
+  
 - [Scalar Value Types](#scalar-value-types)
 
 
@@ -181,6 +191,152 @@ ProductUpdatedResponse represent event message after update product.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | product | [ProductResponse](#auction-ProductResponse) |  |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="proto_user-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## proto/user.proto
+
+
+
+<a name="auction-EventUserData"></a>
+
+### EventUserData
+EventUserData message represent event after user data request.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| data | [User](#auction-User) |  |  |
+
+
+
+
+
+
+<a name="auction-EventUserError"></a>
+
+### EventUserError
+EventUserError message represent event after user message error.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| data | [UserMessageError](#auction-UserMessageError) |  |  |
+
+
+
+
+
+
+<a name="auction-EventUserRevoked"></a>
+
+### EventUserRevoked
+EventUserRevoked message represent event after user revocation.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| data | [UserId](#auction-UserId) |  |  |
+
+
+
+
+
+
+<a name="auction-EventUserUpdated"></a>
+
+### EventUserUpdated
+EventUserUpdated message represent event after user update.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| data | [User](#auction-User) |  |  |
+
+
+
+
+
+
+<a name="auction-EventUserVerified"></a>
+
+### EventUserVerified
+EventUserVerified message represent event after user verification.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| data | [UserId](#auction-UserId) |  |  |
+
+
+
+
+
+
+<a name="auction-User"></a>
+
+### User
+User messages represent user data.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| email | [string](#string) |  |  |
+| phone | [string](#string) |  |  |
+| photo | [string](#string) |  |  |
+| createdAt | [string](#string) |  |  |
+| lastLogin | [string](#string) |  |  |
+| disabled | [bool](#bool) |  |  |
+
+
+
+
+
+
+<a name="auction-UserId"></a>
+
+### UserId
+UserID message represent user id data.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="auction-UserMessageError"></a>
+
+### UserMessageError
+UserMessageError message represent data of user message error.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| msgId | [string](#string) |  |  |
+| user | [User](#auction-User) |  |  |
+| userId | [UserId](#auction-UserId) |  |  |
+| msgCreatedAt | [string](#string) |  |  |
 
 
 
