@@ -301,8 +301,8 @@ User messages represent user data.
 | email | [string](#string) |  |  |
 | phone | [string](#string) |  |  |
 | photo | [string](#string) |  |  |
-| createdAt | [string](#string) |  |  |
-| lastLogin | [string](#string) |  |  |
+| createdAt | [int64](#int64) |  |  |
+| lastLogin | [int64](#int64) |  |  |
 | disabled | [bool](#bool) |  |  |
 
 
