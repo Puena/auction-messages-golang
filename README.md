@@ -24,12 +24,22 @@
     - [Account.Status](#auction-Account-Status)
   
 - [proto/product.proto](#proto_product-proto)
+    - [CommandCreateProduct](#auction-CommandCreateProduct)
+    - [CommandDeleteProduct](#auction-CommandDeleteProduct)
+    - [CommandFindProduct](#auction-CommandFindProduct)
+    - [CommandFindProducts](#auction-CommandFindProducts)
+    - [CommandUpdateProduct](#auction-CommandUpdateProduct)
+    - [CreateProduct](#auction-CreateProduct)
+    - [DeleteProduct](#auction-DeleteProduct)
     - [EventProductCreated](#auction-EventProductCreated)
     - [EventProductDeleted](#auction-EventProductDeleted)
     - [EventProductFound](#auction-EventProductFound)
     - [EventProductUpdated](#auction-EventProductUpdated)
     - [EventProductsFound](#auction-EventProductsFound)
+    - [FindProduct](#auction-FindProduct)
+    - [FindProducts](#auction-FindProducts)
     - [Product](#auction-Product)
+    - [UpdateProduct](#auction-UpdateProduct)
   
 - [proto/user.proto](#proto_user-proto)
     - [EventUserData](#auction-EventUserData)
@@ -337,6 +347,120 @@ AccountCreateMessage represent event message for user account creation.
 
 
 
+<a name="auction-CommandCreateProduct"></a>
+
+### CommandCreateProduct
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [CreateProduct](#auction-CreateProduct) |  |  |
+
+
+
+
+
+
+<a name="auction-CommandDeleteProduct"></a>
+
+### CommandDeleteProduct
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [DeleteProduct](#auction-DeleteProduct) |  |  |
+
+
+
+
+
+
+<a name="auction-CommandFindProduct"></a>
+
+### CommandFindProduct
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [FindProduct](#auction-FindProduct) |  |  |
+
+
+
+
+
+
+<a name="auction-CommandFindProducts"></a>
+
+### CommandFindProducts
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [FindProducts](#auction-FindProducts) |  |  |
+
+
+
+
+
+
+<a name="auction-CommandUpdateProduct"></a>
+
+### CommandUpdateProduct
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [UpdateProduct](#auction-UpdateProduct) |  |  |
+
+
+
+
+
+
+<a name="auction-CreateProduct"></a>
+
+### CreateProduct
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  |  |
+| media | [string](#string) | repeated | it is a list of media urls. |
+| description | [string](#string) |  |  |
+| created_by | [string](#string) |  | it is user id. |
+
+
+
+
+
+
+<a name="auction-DeleteProduct"></a>
+
+### DeleteProduct
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) |  |  |
+| created_by | [string](#string) |  | it is user id. |
+
+
+
+
+
+
 <a name="auction-EventProductCreated"></a>
 
 ### EventProductCreated
@@ -417,6 +541,31 @@ AccountCreateMessage represent event message for user account creation.
 
 
 
+<a name="auction-FindProduct"></a>
+
+### FindProduct
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="auction-FindProducts"></a>
+
+### FindProducts
+
+
+
+
+
+
+
 <a name="auction-Product"></a>
 
 ### Product
@@ -431,6 +580,25 @@ Product message represent a product.
 | description | [string](#string) |  |  |
 | created_by | [string](#string) |  | it is user id. |
 | created_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+
+
+
+
+
+
+<a name="auction-UpdateProduct"></a>
+
+### UpdateProduct
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| media | [string](#string) | repeated | it is a list of media urls. |
+| description | [string](#string) |  |  |
+| created_by | [string](#string) |  | it is user id. |
 
 
 
