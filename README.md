@@ -3,17 +3,33 @@
 
 ## Table of Contents
 
+- [proto/account.proto](#proto_account-proto)
+    - [Account](#auction-Account)
+    - [AccountActivateMessage](#auction-AccountActivateMessage)
+    - [AccountActivatedMessage](#auction-AccountActivatedMessage)
+    - [AccountBidReserveMessage](#auction-AccountBidReserveMessage)
+    - [AccountCreateMessage](#auction-AccountCreateMessage)
+    - [AccountCreatedMessage](#auction-AccountCreatedMessage)
+    - [AccountDepositMessage](#auction-AccountDepositMessage)
+    - [AccountDepositedMessage](#auction-AccountDepositedMessage)
+    - [AccountGetData](#auction-AccountGetData)
+    - [AccountGetDataResponse](#auction-AccountGetDataResponse)
+    - [AccountReserveMessage](#auction-AccountReserveMessage)
+    - [AccountReservedMessage](#auction-AccountReservedMessage)
+    - [AccountSuspendMessage](#auction-AccountSuspendMessage)
+    - [AccountSuspendedMessage](#auction-AccountSuspendedMessage)
+    - [AccountWithdrawMessage](#auction-AccountWithdrawMessage)
+    - [AccountWithdrawnMessage](#auction-AccountWithdrawnMessage)
+  
+    - [Account.Status](#auction-Account-Status)
+  
 - [proto/product.proto](#proto_product-proto)
-    - [GetProductByIdRequest](#auction-GetProductByIdRequest)
-    - [GetProductsByNameRequest](#auction-GetProductsByNameRequest)
-    - [ProductCreateRequest](#auction-ProductCreateRequest)
-    - [ProductCreatedResponse](#auction-ProductCreatedResponse)
-    - [ProductDeleteRequest](#auction-ProductDeleteRequest)
-    - [ProductDeletedResponse](#auction-ProductDeletedResponse)
-    - [ProductErrorResponse](#auction-ProductErrorResponse)
-    - [ProductResponse](#auction-ProductResponse)
-    - [ProductUpdateRequest](#auction-ProductUpdateRequest)
-    - [ProductUpdatedResponse](#auction-ProductUpdatedResponse)
+    - [EventProductCreated](#auction-EventProductCreated)
+    - [EventProductDeleted](#auction-EventProductDeleted)
+    - [EventProductFound](#auction-EventProductFound)
+    - [EventProductUpdated](#auction-EventProductUpdated)
+    - [EventProductsFound](#auction-EventProductsFound)
+    - [Product](#auction-Product)
   
 - [proto/user.proto](#proto_user-proto)
     - [EventUserData](#auction-EventUserData)
@@ -29,135 +45,26 @@
 
 
 
-<a name="proto_product-proto"></a>
+<a name="proto_account-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## proto/product.proto
+## proto/account.proto
 
 
 
-<a name="auction-GetProductByIdRequest"></a>
+<a name="auction-Account"></a>
 
-### GetProductByIdRequest
-GetProductByIdRequest represent event message to get product by id.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| id | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="auction-GetProductsByNameRequest"></a>
-
-### GetProductsByNameRequest
-GetProductsByNameRequest represent event message to get products by name.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| name | [string](#string) | repeated |  |
-
-
-
-
-
-
-<a name="auction-ProductCreateRequest"></a>
-
-### ProductCreateRequest
-ProductCreateRequest represent event message to create products.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| name | [string](#string) |  |  |
-| media | [string](#string) | repeated |  |
-| description | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="auction-ProductCreatedResponse"></a>
-
-### ProductCreatedResponse
-ProductCreatedResponse represent event message after create product.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| product | [ProductResponse](#auction-ProductResponse) |  |  |
-
-
-
-
-
-
-<a name="auction-ProductDeleteRequest"></a>
-
-### ProductDeleteRequest
-ProductDeleteRequest represent event message to delete product.
+### Account
+Account represent event message for user account.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="auction-ProductDeletedResponse"></a>
-
-### ProductDeletedResponse
-ProductDeletedResponse represent event message after delete product.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| product | [ProductResponse](#auction-ProductResponse) |  |  |
-
-
-
-
-
-
-<a name="auction-ProductErrorResponse"></a>
-
-### ProductErrorResponse
-ProductErrorResponse represent event message of product error.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| code | [string](#string) |  |  |
-| message | [string](#string) |  |  |
-| details | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="auction-ProductResponse"></a>
-
-### ProductResponse
-ProductResponse represent message data of product.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| id | [string](#string) |  |  |
-| name | [string](#string) |  |  |
-| media | [string](#string) | repeated |  |
-| description | [string](#string) |  |  |
-| created_by | [string](#string) |  |  |
+| user_id | [string](#string) |  |  |
+| reserved_funds | [string](#string) |  |  |
+| available_funds | [string](#string) |  |  |
+| status | [Account.Status](#auction-Account-Status) |  |  |
 | created_at | [string](#string) |  |  |
 
 
@@ -165,32 +72,365 @@ ProductResponse represent message data of product.
 
 
 
-<a name="auction-ProductUpdateRequest"></a>
+<a name="auction-AccountActivateMessage"></a>
 
-### ProductUpdateRequest
-ProductUpdateRequest represent event message to update product.
+### AccountActivateMessage
+
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [string](#string) |  |  |
-| media | [string](#string) | repeated |  |
-| description | [string](#string) | optional |  |
+| user_id | [string](#string) |  |  |
 
 
 
 
 
 
-<a name="auction-ProductUpdatedResponse"></a>
+<a name="auction-AccountActivatedMessage"></a>
 
-### ProductUpdatedResponse
-ProductUpdatedResponse represent event message after update product.
+### AccountActivatedMessage
+
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| product | [ProductResponse](#auction-ProductResponse) |  |  |
+| account | [Account](#auction-Account) |  |  |
+
+
+
+
+
+
+<a name="auction-AccountBidReserveMessage"></a>
+
+### AccountBidReserveMessage
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| account_id | [string](#string) |  |  |
+| user_id | [string](#string) |  |  |
+| bid_id | [string](#string) |  |  |
+| amount | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="auction-AccountCreateMessage"></a>
+
+### AccountCreateMessage
+AccountCreateMessage represent event message for user account creation.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="auction-AccountCreatedMessage"></a>
+
+### AccountCreatedMessage
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| account | [Account](#auction-Account) |  |  |
+
+
+
+
+
+
+<a name="auction-AccountDepositMessage"></a>
+
+### AccountDepositMessage
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) |  |  |
+| user_id | [string](#string) |  |  |
+| amount | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="auction-AccountDepositedMessage"></a>
+
+### AccountDepositedMessage
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| account | [Account](#auction-Account) |  |  |
+
+
+
+
+
+
+<a name="auction-AccountGetData"></a>
+
+### AccountGetData
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="auction-AccountGetDataResponse"></a>
+
+### AccountGetDataResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| account | [Account](#auction-Account) |  |  |
+
+
+
+
+
+
+<a name="auction-AccountReserveMessage"></a>
+
+### AccountReserveMessage
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) |  |  |
+| user_id | [string](#string) |  |  |
+| amount | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="auction-AccountReservedMessage"></a>
+
+### AccountReservedMessage
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| account | [Account](#auction-Account) |  |  |
+
+
+
+
+
+
+<a name="auction-AccountSuspendMessage"></a>
+
+### AccountSuspendMessage
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) |  |  |
+| user_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="auction-AccountSuspendedMessage"></a>
+
+### AccountSuspendedMessage
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| account | [Account](#auction-Account) |  |  |
+
+
+
+
+
+
+<a name="auction-AccountWithdrawMessage"></a>
+
+### AccountWithdrawMessage
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) |  |  |
+| user_id | [string](#string) |  |  |
+| amount | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="auction-AccountWithdrawnMessage"></a>
+
+### AccountWithdrawnMessage
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| account | [Account](#auction-Account) |  |  |
+
+
+
+
+
+ 
+
+
+<a name="auction-Account-Status"></a>
+
+### Account.Status
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| UNKNOWN | 0 |  |
+| ACTIVE | 1 |  |
+| INACTIVE | 2 |  |
+
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="proto_product-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## proto/product.proto
+
+
+
+<a name="auction-EventProductCreated"></a>
+
+### EventProductCreated
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [Product](#auction-Product) |  |  |
+
+
+
+
+
+
+<a name="auction-EventProductDeleted"></a>
+
+### EventProductDeleted
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [Product](#auction-Product) |  |  |
+
+
+
+
+
+
+<a name="auction-EventProductFound"></a>
+
+### EventProductFound
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [Product](#auction-Product) |  |  |
+
+
+
+
+
+
+<a name="auction-EventProductUpdated"></a>
+
+### EventProductUpdated
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [Product](#auction-Product) |  |  |
+
+
+
+
+
+
+<a name="auction-EventProductsFound"></a>
+
+### EventProductsFound
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [Product](#auction-Product) | repeated |  |
+
+
+
+
+
+
+<a name="auction-Product"></a>
+
+### Product
+Product message represent a product.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| media | [string](#string) | repeated | it is a list of media urls. |
+| description | [string](#string) |  |  |
+| created_by | [string](#string) |  | it is user id. |
+| created_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
 
 
 

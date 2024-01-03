@@ -7,6 +7,7 @@
 package auction
 
 import (
+	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -20,17 +21,22 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// GetProductByIdRequest represent event message to get product by id.
-type GetProductByIdRequest struct {
+// Product message represent a product.
+type Product struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id          string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name        string               `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Media       []string             `protobuf:"bytes,3,rep,name=media,proto3" json:"media,omitempty"` // it is a list of media urls.
+	Description string               `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	CreatedBy   string               `protobuf:"bytes,5,opt,name=created_by,json=createdBy,proto3" json:"created_by,omitempty"` // it is user id.
+	CreatedAt   *timestamp.Timestamp `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 }
 
-func (x *GetProductByIdRequest) Reset() {
-	*x = GetProductByIdRequest{}
+func (x *Product) Reset() {
+	*x = Product{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_product_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -38,13 +44,13 @@ func (x *GetProductByIdRequest) Reset() {
 	}
 }
 
-func (x *GetProductByIdRequest) String() string {
+func (x *Product) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetProductByIdRequest) ProtoMessage() {}
+func (*Product) ProtoMessage() {}
 
-func (x *GetProductByIdRequest) ProtoReflect() protoreflect.Message {
+func (x *Product) ProtoReflect() protoreflect.Message {
 	mi := &file_product_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -56,29 +62,64 @@ func (x *GetProductByIdRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetProductByIdRequest.ProtoReflect.Descriptor instead.
-func (*GetProductByIdRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use Product.ProtoReflect.Descriptor instead.
+func (*Product) Descriptor() ([]byte, []int) {
 	return file_product_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *GetProductByIdRequest) GetId() string {
+func (x *Product) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-// GetProductsByNameRequest represent event message to get products by name.
-type GetProductsByNameRequest struct {
+func (x *Product) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Product) GetMedia() []string {
+	if x != nil {
+		return x.Media
+	}
+	return nil
+}
+
+func (x *Product) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *Product) GetCreatedBy() string {
+	if x != nil {
+		return x.CreatedBy
+	}
+	return ""
+}
+
+func (x *Product) GetCreatedAt() *timestamp.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
+type EventProductCreated struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Name []string `protobuf:"bytes,2,rep,name=name,proto3" json:"name,omitempty"`
+	Key   string   `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value *Product `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
 }
 
-func (x *GetProductsByNameRequest) Reset() {
-	*x = GetProductsByNameRequest{}
+func (x *EventProductCreated) Reset() {
+	*x = EventProductCreated{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_product_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -86,13 +127,13 @@ func (x *GetProductsByNameRequest) Reset() {
 	}
 }
 
-func (x *GetProductsByNameRequest) String() string {
+func (x *EventProductCreated) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetProductsByNameRequest) ProtoMessage() {}
+func (*EventProductCreated) ProtoMessage() {}
 
-func (x *GetProductsByNameRequest) ProtoReflect() protoreflect.Message {
+func (x *EventProductCreated) ProtoReflect() protoreflect.Message {
 	mi := &file_product_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -104,31 +145,36 @@ func (x *GetProductsByNameRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetProductsByNameRequest.ProtoReflect.Descriptor instead.
-func (*GetProductsByNameRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use EventProductCreated.ProtoReflect.Descriptor instead.
+func (*EventProductCreated) Descriptor() ([]byte, []int) {
 	return file_product_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *GetProductsByNameRequest) GetName() []string {
+func (x *EventProductCreated) GetKey() string {
 	if x != nil {
-		return x.Name
+		return x.Key
+	}
+	return ""
+}
+
+func (x *EventProductCreated) GetValue() *Product {
+	if x != nil {
+		return x.Value
 	}
 	return nil
 }
 
-// ProductCreateRequest represent event message to create products.
-type ProductCreateRequest struct {
+type EventProductUpdated struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Name        string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Media       []string `protobuf:"bytes,2,rep,name=media,proto3" json:"media,omitempty"`
-	Description string   `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	Key   string   `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value *Product `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
 }
 
-func (x *ProductCreateRequest) Reset() {
-	*x = ProductCreateRequest{}
+func (x *EventProductUpdated) Reset() {
+	*x = EventProductUpdated{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_product_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -136,13 +182,13 @@ func (x *ProductCreateRequest) Reset() {
 	}
 }
 
-func (x *ProductCreateRequest) String() string {
+func (x *EventProductUpdated) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ProductCreateRequest) ProtoMessage() {}
+func (*EventProductUpdated) ProtoMessage() {}
 
-func (x *ProductCreateRequest) ProtoReflect() protoreflect.Message {
+func (x *EventProductUpdated) ProtoReflect() protoreflect.Message {
 	mi := &file_product_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -154,45 +200,36 @@ func (x *ProductCreateRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ProductCreateRequest.ProtoReflect.Descriptor instead.
-func (*ProductCreateRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use EventProductUpdated.ProtoReflect.Descriptor instead.
+func (*EventProductUpdated) Descriptor() ([]byte, []int) {
 	return file_product_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *ProductCreateRequest) GetName() string {
+func (x *EventProductUpdated) GetKey() string {
 	if x != nil {
-		return x.Name
+		return x.Key
 	}
 	return ""
 }
 
-func (x *ProductCreateRequest) GetMedia() []string {
+func (x *EventProductUpdated) GetValue() *Product {
 	if x != nil {
-		return x.Media
+		return x.Value
 	}
 	return nil
 }
 
-func (x *ProductCreateRequest) GetDescription() string {
-	if x != nil {
-		return x.Description
-	}
-	return ""
-}
-
-// ProductUpdateRequest represent event message to update product.
-type ProductUpdateRequest struct {
+type EventProductDeleted struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id          string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Media       []string `protobuf:"bytes,2,rep,name=media,proto3" json:"media,omitempty"`
-	Description *string  `protobuf:"bytes,3,opt,name=description,proto3,oneof" json:"description,omitempty"`
+	Key   string   `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value *Product `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
 }
 
-func (x *ProductUpdateRequest) Reset() {
-	*x = ProductUpdateRequest{}
+func (x *EventProductDeleted) Reset() {
+	*x = EventProductDeleted{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_product_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -200,13 +237,13 @@ func (x *ProductUpdateRequest) Reset() {
 	}
 }
 
-func (x *ProductUpdateRequest) String() string {
+func (x *EventProductDeleted) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ProductUpdateRequest) ProtoMessage() {}
+func (*EventProductDeleted) ProtoMessage() {}
 
-func (x *ProductUpdateRequest) ProtoReflect() protoreflect.Message {
+func (x *EventProductDeleted) ProtoReflect() protoreflect.Message {
 	mi := &file_product_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -218,43 +255,36 @@ func (x *ProductUpdateRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ProductUpdateRequest.ProtoReflect.Descriptor instead.
-func (*ProductUpdateRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use EventProductDeleted.ProtoReflect.Descriptor instead.
+func (*EventProductDeleted) Descriptor() ([]byte, []int) {
 	return file_product_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *ProductUpdateRequest) GetId() string {
+func (x *EventProductDeleted) GetKey() string {
 	if x != nil {
-		return x.Id
+		return x.Key
 	}
 	return ""
 }
 
-func (x *ProductUpdateRequest) GetMedia() []string {
+func (x *EventProductDeleted) GetValue() *Product {
 	if x != nil {
-		return x.Media
+		return x.Value
 	}
 	return nil
 }
 
-func (x *ProductUpdateRequest) GetDescription() string {
-	if x != nil && x.Description != nil {
-		return *x.Description
-	}
-	return ""
-}
-
-// ProductDeleteRequest represent event message to delete product.
-type ProductDeleteRequest struct {
+type EventProductFound struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Key   string   `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value *Product `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
 }
 
-func (x *ProductDeleteRequest) Reset() {
-	*x = ProductDeleteRequest{}
+func (x *EventProductFound) Reset() {
+	*x = EventProductFound{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_product_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -262,13 +292,13 @@ func (x *ProductDeleteRequest) Reset() {
 	}
 }
 
-func (x *ProductDeleteRequest) String() string {
+func (x *EventProductFound) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ProductDeleteRequest) ProtoMessage() {}
+func (*EventProductFound) ProtoMessage() {}
 
-func (x *ProductDeleteRequest) ProtoReflect() protoreflect.Message {
+func (x *EventProductFound) ProtoReflect() protoreflect.Message {
 	mi := &file_product_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -280,34 +310,36 @@ func (x *ProductDeleteRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ProductDeleteRequest.ProtoReflect.Descriptor instead.
-func (*ProductDeleteRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use EventProductFound.ProtoReflect.Descriptor instead.
+func (*EventProductFound) Descriptor() ([]byte, []int) {
 	return file_product_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *ProductDeleteRequest) GetId() string {
+func (x *EventProductFound) GetKey() string {
 	if x != nil {
-		return x.Id
+		return x.Key
 	}
 	return ""
 }
 
-// ProductResponse represent message data of product.
-type ProductResponse struct {
+func (x *EventProductFound) GetValue() *Product {
+	if x != nil {
+		return x.Value
+	}
+	return nil
+}
+
+type EventProductsFound struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id          string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name        string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Media       []string `protobuf:"bytes,3,rep,name=media,proto3" json:"media,omitempty"`
-	Description string   `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
-	CreatedBy   string   `protobuf:"bytes,5,opt,name=created_by,json=createdBy,proto3" json:"created_by,omitempty"`
-	CreatedAt   string   `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	Key   string     `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value []*Product `protobuf:"bytes,2,rep,name=value,proto3" json:"value,omitempty"`
 }
 
-func (x *ProductResponse) Reset() {
-	*x = ProductResponse{}
+func (x *EventProductsFound) Reset() {
+	*x = EventProductsFound{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_product_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -315,13 +347,13 @@ func (x *ProductResponse) Reset() {
 	}
 }
 
-func (x *ProductResponse) String() string {
+func (x *EventProductsFound) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ProductResponse) ProtoMessage() {}
+func (*EventProductsFound) ProtoMessage() {}
 
-func (x *ProductResponse) ProtoReflect() protoreflect.Message {
+func (x *EventProductsFound) ProtoReflect() protoreflect.Message {
 	mi := &file_product_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -333,257 +365,21 @@ func (x *ProductResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ProductResponse.ProtoReflect.Descriptor instead.
-func (*ProductResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use EventProductsFound.ProtoReflect.Descriptor instead.
+func (*EventProductsFound) Descriptor() ([]byte, []int) {
 	return file_product_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *ProductResponse) GetId() string {
+func (x *EventProductsFound) GetKey() string {
 	if x != nil {
-		return x.Id
+		return x.Key
 	}
 	return ""
 }
 
-func (x *ProductResponse) GetName() string {
+func (x *EventProductsFound) GetValue() []*Product {
 	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-func (x *ProductResponse) GetMedia() []string {
-	if x != nil {
-		return x.Media
-	}
-	return nil
-}
-
-func (x *ProductResponse) GetDescription() string {
-	if x != nil {
-		return x.Description
-	}
-	return ""
-}
-
-func (x *ProductResponse) GetCreatedBy() string {
-	if x != nil {
-		return x.CreatedBy
-	}
-	return ""
-}
-
-func (x *ProductResponse) GetCreatedAt() string {
-	if x != nil {
-		return x.CreatedAt
-	}
-	return ""
-}
-
-// ProductErrorResponse represent event message of product error.
-type ProductErrorResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Code    string `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
-	Message string `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
-	Details string `protobuf:"bytes,3,opt,name=details,proto3" json:"details,omitempty"`
-}
-
-func (x *ProductErrorResponse) Reset() {
-	*x = ProductErrorResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_product_proto_msgTypes[6]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *ProductErrorResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ProductErrorResponse) ProtoMessage() {}
-
-func (x *ProductErrorResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_product_proto_msgTypes[6]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ProductErrorResponse.ProtoReflect.Descriptor instead.
-func (*ProductErrorResponse) Descriptor() ([]byte, []int) {
-	return file_product_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *ProductErrorResponse) GetCode() string {
-	if x != nil {
-		return x.Code
-	}
-	return ""
-}
-
-func (x *ProductErrorResponse) GetMessage() string {
-	if x != nil {
-		return x.Message
-	}
-	return ""
-}
-
-func (x *ProductErrorResponse) GetDetails() string {
-	if x != nil {
-		return x.Details
-	}
-	return ""
-}
-
-// ProductCreatedResponse represent event message after create product.
-type ProductCreatedResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Product *ProductResponse `protobuf:"bytes,1,opt,name=product,proto3" json:"product,omitempty"`
-}
-
-func (x *ProductCreatedResponse) Reset() {
-	*x = ProductCreatedResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_product_proto_msgTypes[7]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *ProductCreatedResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ProductCreatedResponse) ProtoMessage() {}
-
-func (x *ProductCreatedResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_product_proto_msgTypes[7]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ProductCreatedResponse.ProtoReflect.Descriptor instead.
-func (*ProductCreatedResponse) Descriptor() ([]byte, []int) {
-	return file_product_proto_rawDescGZIP(), []int{7}
-}
-
-func (x *ProductCreatedResponse) GetProduct() *ProductResponse {
-	if x != nil {
-		return x.Product
-	}
-	return nil
-}
-
-// ProductUpdatedResponse represent event message after update product.
-type ProductUpdatedResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Product *ProductResponse `protobuf:"bytes,1,opt,name=product,proto3" json:"product,omitempty"`
-}
-
-func (x *ProductUpdatedResponse) Reset() {
-	*x = ProductUpdatedResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_product_proto_msgTypes[8]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *ProductUpdatedResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ProductUpdatedResponse) ProtoMessage() {}
-
-func (x *ProductUpdatedResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_product_proto_msgTypes[8]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ProductUpdatedResponse.ProtoReflect.Descriptor instead.
-func (*ProductUpdatedResponse) Descriptor() ([]byte, []int) {
-	return file_product_proto_rawDescGZIP(), []int{8}
-}
-
-func (x *ProductUpdatedResponse) GetProduct() *ProductResponse {
-	if x != nil {
-		return x.Product
-	}
-	return nil
-}
-
-// ProductDeletedResponse represent event message after delete product.
-type ProductDeletedResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Product *ProductResponse `protobuf:"bytes,1,opt,name=product,proto3" json:"product,omitempty"`
-}
-
-func (x *ProductDeletedResponse) Reset() {
-	*x = ProductDeletedResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_product_proto_msgTypes[9]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *ProductDeletedResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ProductDeletedResponse) ProtoMessage() {}
-
-func (x *ProductDeletedResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_product_proto_msgTypes[9]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ProductDeletedResponse.ProtoReflect.Descriptor instead.
-func (*ProductDeletedResponse) Descriptor() ([]byte, []int) {
-	return file_product_proto_rawDescGZIP(), []int{9}
-}
-
-func (x *ProductDeletedResponse) GetProduct() *ProductResponse {
-	if x != nil {
-		return x.Product
+		return x.Value
 	}
 	return nil
 }
@@ -592,64 +388,50 @@ var File_product_proto protoreflect.FileDescriptor
 
 var file_product_proto_rawDesc = []byte{
 	0x0a, 0x0d, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12,
-	0x07, 0x61, 0x75, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x27, 0x0a, 0x15, 0x47, 0x65, 0x74, 0x50,
-	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69,
-	0x64, 0x22, 0x2e, 0x0a, 0x18, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73,
-	0x42, 0x79, 0x4e, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a,
-	0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d,
-	0x65, 0x22, 0x62, 0x0a, 0x14, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x43, 0x72, 0x65, 0x61,
-	0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d,
-	0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a,
-	0x05, 0x6d, 0x65, 0x64, 0x69, 0x61, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x05, 0x6d, 0x65,
-	0x64, 0x69, 0x61, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
-	0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69,
-	0x70, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x73, 0x0a, 0x14, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74,
-	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a,
-	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x14, 0x0a,
-	0x05, 0x6d, 0x65, 0x64, 0x69, 0x61, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x05, 0x6d, 0x65,
-	0x64, 0x69, 0x61, 0x12, 0x25, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
-	0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63,
-	0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x88, 0x01, 0x01, 0x42, 0x0e, 0x0a, 0x0c, 0x5f, 0x64,
-	0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x26, 0x0a, 0x14, 0x50, 0x72,
-	0x6f, 0x64, 0x75, 0x63, 0x74, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02,
-	0x69, 0x64, 0x22, 0xab, 0x01, 0x0a, 0x0f, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x6d, 0x65,
-	0x64, 0x69, 0x61, 0x18, 0x03, 0x20, 0x03, 0x28, 0x09, 0x52, 0x05, 0x6d, 0x65, 0x64, 0x69, 0x61,
-	0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18,
-	0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
-	0x6f, 0x6e, 0x12, 0x1d, 0x0a, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x62, 0x79,
-	0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x42,
-	0x79, 0x12, 0x1d, 0x0a, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18,
-	0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74,
-	0x22, 0x5e, 0x0a, 0x14, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x45, 0x72, 0x72, 0x6f, 0x72,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x12, 0x18, 0x0a, 0x07,
-	0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d,
-	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c,
-	0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73,
-	0x22, 0x4c, 0x0a, 0x16, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x43, 0x72, 0x65, 0x61, 0x74,
-	0x65, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x32, 0x0a, 0x07, 0x70, 0x72,
-	0x6f, 0x64, 0x75, 0x63, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x61, 0x75,
-	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52, 0x07, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x22, 0x4c,
-	0x0a, 0x16, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x32, 0x0a, 0x07, 0x70, 0x72, 0x6f, 0x64,
-	0x75, 0x63, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x61, 0x75, 0x63, 0x74,
-	0x69, 0x6f, 0x6e, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x52, 0x07, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x22, 0x4c, 0x0a, 0x16,
-	0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x64, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x32, 0x0a, 0x07, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63,
-	0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x61, 0x75, 0x63, 0x74, 0x69, 0x6f,
-	0x6e, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x52, 0x07, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x42, 0x32, 0x5a, 0x30, 0x67, 0x69,
-	0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x50, 0x75, 0x65, 0x6e, 0x61, 0x2f, 0x61,
-	0x75, 0x74, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2d, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x73,
-	0x2d, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x61, 0x75, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x62, 0x06,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x07, 0x61, 0x75, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x1a, 0x1f, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65,
+	0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74,
+	0x61, 0x6d, 0x70, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xbf, 0x01, 0x0a, 0x07, 0x50, 0x72,
+	0x6f, 0x64, 0x75, 0x63, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x6d, 0x65, 0x64,
+	0x69, 0x61, 0x18, 0x03, 0x20, 0x03, 0x28, 0x09, 0x52, 0x05, 0x6d, 0x65, 0x64, 0x69, 0x61, 0x12,
+	0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x04,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
+	0x6e, 0x12, 0x1d, 0x0a, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x62, 0x79, 0x18,
+	0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x42, 0x79,
+	0x12, 0x39, 0x0a, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x06,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70,
+	0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x22, 0x4f, 0x0a, 0x13, 0x45,
+	0x76, 0x65, 0x6e, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x64, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x03, 0x6b, 0x65, 0x79, 0x12, 0x26, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x61, 0x75, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x50, 0x72,
+	0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x22, 0x4f, 0x0a, 0x13,
+	0x45, 0x76, 0x65, 0x6e, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x55, 0x70, 0x64, 0x61,
+	0x74, 0x65, 0x64, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x26, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x61, 0x75, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x50,
+	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x22, 0x4f, 0x0a,
+	0x13, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x44, 0x65, 0x6c,
+	0x65, 0x74, 0x65, 0x64, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x26, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x61, 0x75, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e,
+	0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x22, 0x4d,
+	0x0a, 0x11, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x46, 0x6f,
+	0x75, 0x6e, 0x64, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x26, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x61, 0x75, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x50,
+	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x22, 0x4e, 0x0a,
+	0x12, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x46, 0x6f,
+	0x75, 0x6e, 0x64, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x26, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02,
+	0x20, 0x03, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x61, 0x75, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x50,
+	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x42, 0x32, 0x5a,
+	0x30, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x50, 0x75, 0x65, 0x6e,
+	0x61, 0x2f, 0x61, 0x75, 0x74, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2d, 0x6d, 0x65, 0x73, 0x73, 0x61,
+	0x67, 0x65, 0x73, 0x2d, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x61, 0x75, 0x63, 0x74, 0x69, 0x6f,
+	0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -664,28 +446,28 @@ func file_product_proto_rawDescGZIP() []byte {
 	return file_product_proto_rawDescData
 }
 
-var file_product_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_product_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_product_proto_goTypes = []interface{}{
-	(*GetProductByIdRequest)(nil),    // 0: auction.GetProductByIdRequest
-	(*GetProductsByNameRequest)(nil), // 1: auction.GetProductsByNameRequest
-	(*ProductCreateRequest)(nil),     // 2: auction.ProductCreateRequest
-	(*ProductUpdateRequest)(nil),     // 3: auction.ProductUpdateRequest
-	(*ProductDeleteRequest)(nil),     // 4: auction.ProductDeleteRequest
-	(*ProductResponse)(nil),          // 5: auction.ProductResponse
-	(*ProductErrorResponse)(nil),     // 6: auction.ProductErrorResponse
-	(*ProductCreatedResponse)(nil),   // 7: auction.ProductCreatedResponse
-	(*ProductUpdatedResponse)(nil),   // 8: auction.ProductUpdatedResponse
-	(*ProductDeletedResponse)(nil),   // 9: auction.ProductDeletedResponse
+	(*Product)(nil),             // 0: auction.Product
+	(*EventProductCreated)(nil), // 1: auction.EventProductCreated
+	(*EventProductUpdated)(nil), // 2: auction.EventProductUpdated
+	(*EventProductDeleted)(nil), // 3: auction.EventProductDeleted
+	(*EventProductFound)(nil),   // 4: auction.EventProductFound
+	(*EventProductsFound)(nil),  // 5: auction.EventProductsFound
+	(*timestamp.Timestamp)(nil), // 6: google.protobuf.Timestamp
 }
 var file_product_proto_depIdxs = []int32{
-	5, // 0: auction.ProductCreatedResponse.product:type_name -> auction.ProductResponse
-	5, // 1: auction.ProductUpdatedResponse.product:type_name -> auction.ProductResponse
-	5, // 2: auction.ProductDeletedResponse.product:type_name -> auction.ProductResponse
-	3, // [3:3] is the sub-list for method output_type
-	3, // [3:3] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	6, // 0: auction.Product.created_at:type_name -> google.protobuf.Timestamp
+	0, // 1: auction.EventProductCreated.value:type_name -> auction.Product
+	0, // 2: auction.EventProductUpdated.value:type_name -> auction.Product
+	0, // 3: auction.EventProductDeleted.value:type_name -> auction.Product
+	0, // 4: auction.EventProductFound.value:type_name -> auction.Product
+	0, // 5: auction.EventProductsFound.value:type_name -> auction.Product
+	6, // [6:6] is the sub-list for method output_type
+	6, // [6:6] is the sub-list for method input_type
+	6, // [6:6] is the sub-list for extension type_name
+	6, // [6:6] is the sub-list for extension extendee
+	0, // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_product_proto_init() }
@@ -695,7 +477,7 @@ func file_product_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_product_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetProductByIdRequest); i {
+			switch v := v.(*Product); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -707,7 +489,7 @@ func file_product_proto_init() {
 			}
 		}
 		file_product_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetProductsByNameRequest); i {
+			switch v := v.(*EventProductCreated); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -719,7 +501,7 @@ func file_product_proto_init() {
 			}
 		}
 		file_product_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ProductCreateRequest); i {
+			switch v := v.(*EventProductUpdated); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -731,7 +513,7 @@ func file_product_proto_init() {
 			}
 		}
 		file_product_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ProductUpdateRequest); i {
+			switch v := v.(*EventProductDeleted); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -743,7 +525,7 @@ func file_product_proto_init() {
 			}
 		}
 		file_product_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ProductDeleteRequest); i {
+			switch v := v.(*EventProductFound); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -755,55 +537,7 @@ func file_product_proto_init() {
 			}
 		}
 		file_product_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ProductResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_product_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ProductErrorResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_product_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ProductCreatedResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_product_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ProductUpdatedResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_product_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ProductDeletedResponse); i {
+			switch v := v.(*EventProductsFound); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -815,14 +549,13 @@ func file_product_proto_init() {
 			}
 		}
 	}
-	file_product_proto_msgTypes[3].OneofWrappers = []interface{}{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_product_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
