@@ -385,7 +385,7 @@ AccountCreateMessage represent event message for user account creation.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | key | [string](#string) |  |  |
-| event_error | [EventError](#auction-EventError) |  |  |
+| value | [EventError](#auction-EventError) |  |  |
 
 
 
