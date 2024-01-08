@@ -639,7 +639,7 @@ Product message represent a product.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| code | [string](#string) |  |  |
+| code | [int32](#int32) |  |  |
 | message | [string](#string) |  |  |
 | reference_event_key | [string](#string) |  |  |
 
