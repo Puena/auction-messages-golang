@@ -23,22 +23,28 @@
   
     - [Account.Status](#auction-Account-Status)
   
+- [proto/error.proto](#proto_error-proto)
+    - [EventError](#auction-EventError)
+    - [EventErrorOccurred](#auction-EventErrorOccurred)
+  
 - [proto/product.proto](#proto_product-proto)
     - [CommandCreateProduct](#auction-CommandCreateProduct)
     - [CommandDeleteProduct](#auction-CommandDeleteProduct)
-    - [CommandFindProduct](#auction-CommandFindProduct)
-    - [CommandFindProducts](#auction-CommandFindProducts)
     - [CommandUpdateProduct](#auction-CommandUpdateProduct)
     - [CreateProduct](#auction-CreateProduct)
     - [DeleteProduct](#auction-DeleteProduct)
     - [EventProductCreated](#auction-EventProductCreated)
     - [EventProductDeleted](#auction-EventProductDeleted)
+    - [EventProductErrorOccurred](#auction-EventProductErrorOccurred)
     - [EventProductFound](#auction-EventProductFound)
     - [EventProductUpdated](#auction-EventProductUpdated)
     - [EventProductsFound](#auction-EventProductsFound)
     - [FindProduct](#auction-FindProduct)
     - [FindProducts](#auction-FindProducts)
     - [Product](#auction-Product)
+    - [ProductError](#auction-ProductError)
+    - [QueryFindProduct](#auction-QueryFindProduct)
+    - [QueryFindProducts](#auction-QueryFindProducts)
     - [UpdateProduct](#auction-UpdateProduct)
   
 - [proto/user.proto](#proto_user-proto)
@@ -340,6 +346,61 @@ AccountCreateMessage represent event message for user account creation.
 
 
 
+<a name="proto_error-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## proto/error.proto
+
+
+
+<a name="auction-EventError"></a>
+
+### EventError
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| stream_name | [string](#string) |  |  |
+| consumer_name | [string](#string) |  |  |
+| subject | [string](#string) |  |  |
+| reference_event_key | [string](#string) |  |  |
+| message | [string](#string) |  |  |
+| code | [int32](#int32) |  |  |
+| data | [bytes](#bytes) |  |  |
+| headers | [string](#string) |  |  |
+| time | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+
+
+
+
+
+
+<a name="auction-EventErrorOccurred"></a>
+
+### EventErrorOccurred
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| event_error | [EventError](#auction-EventError) |  |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
 <a name="proto_product-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -373,38 +434,6 @@ AccountCreateMessage represent event message for user account creation.
 | ----- | ---- | ----- | ----------- |
 | key | [string](#string) |  |  |
 | value | [DeleteProduct](#auction-DeleteProduct) |  |  |
-
-
-
-
-
-
-<a name="auction-CommandFindProduct"></a>
-
-### CommandFindProduct
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| key | [string](#string) |  |  |
-| value | [FindProduct](#auction-FindProduct) |  |  |
-
-
-
-
-
-
-<a name="auction-CommandFindProducts"></a>
-
-### CommandFindProducts
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| key | [string](#string) |  |  |
-| value | [FindProducts](#auction-FindProducts) |  |  |
 
 
 
@@ -487,6 +516,22 @@ AccountCreateMessage represent event message for user account creation.
 | ----- | ---- | ----- | ----------- |
 | key | [string](#string) |  |  |
 | value | [Product](#auction-Product) |  |  |
+
+
+
+
+
+
+<a name="auction-EventProductErrorOccurred"></a>
+
+### EventProductErrorOccurred
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [ProductError](#auction-ProductError) |  |  |
 
 
 
@@ -580,6 +625,55 @@ Product message represent a product.
 | description | [string](#string) |  |  |
 | created_by | [string](#string) |  | it is user id. |
 | created_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+
+
+
+
+
+
+<a name="auction-ProductError"></a>
+
+### ProductError
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| code | [string](#string) |  |  |
+| message | [string](#string) |  |  |
+| reference_event_key | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="auction-QueryFindProduct"></a>
+
+### QueryFindProduct
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [FindProduct](#auction-FindProduct) |  |  |
+
+
+
+
+
+
+<a name="auction-QueryFindProducts"></a>
+
+### QueryFindProducts
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [FindProducts](#auction-FindProducts) |  |  |
 
 
 
